@@ -4,16 +4,16 @@ import java.util.List;
 
 public class test {
     public static void main(String[] args) {
-        String s = "NPCP";
-        List<String> pions = new ArrayList<>(Arrays.asList("NPCC", "NPCP", "NGCC", "NGCP", "NPRC", "NPRP", "NGRC", "NGRP",
-                "BPCC", "BPCP", "BGCC", "BGCP", "BPRC", "BPRP", "BGRC", "BGRP"));
-        System.out.println(pions);
-        pions.remove(s);
-        System.out.println(pions);
-        System.out.println((pions.get(4)));
-        for (int i = 0; i < pions.size(); i++) {
-            if (s.equals(pions.get(i)))
-                pions.remove(i);
-        }
+        String mot1 = "NPCP";
+        String mot2 = "BGCC";
+        boolean identiques = caracteresIdentiquesEntreMots(mot1, mot2, 2);
+        System.out.println("Les caractères sont-ils identiques entre les deux mots ? " + identiques);
+
+
+
+    }
+    private static boolean caracteresIdentiquesEntreMots(String mot1, String mot2, int position) {
+
+        return false;
     }
 }

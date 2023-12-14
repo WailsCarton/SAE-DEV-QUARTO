@@ -1,75 +1,89 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
+import java.util.List;
+import java.util.Arrays;
+import java.util.ArrayList;
 
 public class Jeu {
-    private static final String LINE_SEPARATOR = "\n";
 
-    public static void jeu(String[][] plateau) {
-        Scanner scanner = new Scanner(System.in).useDelimiter(LINE_SEPARATOR);
+    public static void jouer(String[][] plateau) {
+        Scanner scanner = new Scanner(System.in).useDelimiter("\n");
 
-        List<String> pions = new ArrayList<>(Arrays.asList(
-                "NPCC", "NPCP", "NGCC", "NGCP", "NPRC", "NPRP", "NGRC", "NGRP",
-                "BPCC", "BPCP", "BGCC", "BGCP", "BPRC", "BPRP", "BGRC", "BGRP"
-        ));
+        List<String> pions = initialiserPions();
 
         int win;
         do {
             System.out.println(pions);
 
-            // Validation du choix de pions
-            String choixPions;
-            do {
-                System.out.print("Le pion : ");
-                choixPions = scanner.nextLine();
-                if (!pions.contains(choixPions)) {
-                    System.out.println("Pion invalide. Veuillez réessayer.");
-                }
-            } while (!pions.contains(choixPions));
+            String choixPions = demanderChoixPions(scanner, pions);
 
             prendrePions(pions, choixPions);
             System.out.println(pions);
 
-            // Validation de la ligne
-            int ligne;
-            do {
-                System.out.print("Quelle ligne ? ");
-                ligne = getIntInput(scanner);
-                if (ligne < 0 || ligne >= plateau.length) {
-                    System.out.println("Ligne invalide. Veuillez réessayer.");
-                }
-            } while (ligne < 0 || ligne >= plateau.length);
-
-            // Validation de la colonne
-            int col;
-            do {
-                System.out.print("Quelle colonne ? ");
-                col = getIntInput(scanner);
-                if (col < 0 || col >= plateau[ligne].length) {
-                    System.out.println("Colonne invalide. Veuillez réessayer.");
-                }
-            } while (col < 0 || col >= plateau[ligne].length);
+            int ligne = demanderLigne(scanner, plateau);
+            int col = demanderColonne(scanner, plateau, ligne);
 
             plateau[ligne][col] = choixPions;
             GrilleAffichage.afficherGrille(plateau);
 
-            // Validation du choix
-            System.out.print("Choix ? ");
-            win = getIntInput(scanner);
-            scanner.nextLine(); // Clear le buffer
-        } while (win != 0);
+            if (ligneContientCaractereSimilaire(plateau[ligne])) {
+                System.out.println("Gagner");
+                break;
+            }
+            scanner.nextLine();
+        } while (true);
+
+        scanner.close();
+    }
+
+    private static List<String> initialiserPions() {
+        return new ArrayList<>(Arrays.asList(
+                "NPCC", "NPCP", "NGCC", "NGCP", "NPRC", "NPRP", "NGRC", "NGRP",
+                "BPCC", "BPCP", "BGCC", "BGCP", "BPRC", "BPRP", "BGRC", "BGRP"
+        ));
+    }
+
+    private static String demanderChoixPions(Scanner scanner, List<String> pions) {
+        String choixPions;
+        do {
+            System.out.print("Le pion : ");
+            choixPions = scanner.nextLine();
+            if (!pions.contains(choixPions)) {
+                System.out.println("Pion invalide. Veuillez réessayer.");
+            }
+        } while (!pions.contains(choixPions));
+        return choixPions;
     }
 
     private static void prendrePions(List<String> pions, String choixPions) {
         pions.remove(choixPions);
     }
 
-    public static int getIntInput(Scanner scanner) {
-        while (!scanner.hasNextInt()) {
-            System.out.print("Entrée invalide. Veuillez réessayer : ");
-            scanner.nextLine(); // Clear le buffer
-        }
-        return scanner.nextInt();
+    private static int demanderLigne(Scanner scanner, String[][] plateau) {
+        int ligne;
+        do {
+            System.out.print("Quelle ligne ? ");
+            ligne = Utilitaires.getIntInput(scanner);
+            if (ligne < 0 || ligne >= plateau.length) {
+                System.out.println("Ligne invalide. Veuillez réessayer.");
+            }
+        } while (ligne < 0 || ligne >= plateau.length);
+        return ligne;
     }
+
+    private static int demanderColonne(Scanner scanner, String[][] plateau, int ligne) {
+        int col;
+        do {
+            System.out.print("Quelle colonne ? ");
+            col = Utilitaires.getIntInput(scanner);
+            if (col < 0 || col >= plateau[ligne].length) {
+                System.out.println("Colonne invalide. Veuillez réessayer.");
+            }
+        } while (col < 0 || col >= plateau[ligne].length);
+        return col;
+    }
+
+    private static boolean ligneContientCaractereSimilaire(String[] ligne) {
+        return true;
+    }
+
 }
