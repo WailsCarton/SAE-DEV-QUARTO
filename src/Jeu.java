@@ -25,12 +25,9 @@ public class Jeu {
             plateau[ligne][col] = choixPions;
             GrilleAffichage.afficherGrille(plateau);
 
-            if (ligneContientCaractereSimilaire(plateau[ligne])) {
-                System.out.println("Gagner");
-                break;
-            }
+            win = scanner.nextInt();
             scanner.nextLine();
-        } while (true);
+        } while (win!=0);
 
         scanner.close();
     }

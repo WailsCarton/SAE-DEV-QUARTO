@@ -6,14 +6,31 @@ public class test {
     public static void main(String[] args) {
         String mot1 = "NPCP";
         String mot2 = "BGCC";
-        boolean identiques = caracteresIdentiquesEntreMots(mot1, mot2, 2);
-        System.out.println("Les caractères sont-ils identiques entre les deux mots ? " + identiques);
+        String[][] lst = {
+                {"NPCC", "NPCC", "NPCC", "NPCC"},
+                {"BPCC", "BPCP", "BGCC", "BGCP"},
+                {"BGRC", "NPCP", "BPCP", "NGCP"},
+                {"NPCC", "NPCP", "NGCC", "NGCP"}
+        };
+
+        caracteresIdentiquesEntreMots(lst);
 
 
 
     }
-    private static boolean caracteresIdentiquesEntreMots(String mot1, String mot2, int position) {
+    private static void caracteresIdentiquesEntreMots(String[][] tab) {
+        boolean identique = false;
+        for (int ligne = 0; ligne < tab.length; ligne++) {
+            for (int col = 0; col<tab[ligne].length; col++) {
+                for (int car = 0; car<tab[ligne][col].length(); car++)
+                    do {
+                        System.out.print(tab[ligne][col].charAt(car) + "\t");
+                    }while (tab[ligne][col].charAt(car) == tab[ligne][col].charAt(car+1));
+                System.out.println();
+            }
+            System.out.println();
 
-        return false;
+        }
+
     }
 }
