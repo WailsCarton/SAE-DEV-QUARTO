@@ -17,7 +17,7 @@ Cette implémentation en Java de Quarto propose une interface en console pour qu
 
 ### Prérequis
 
-- Kit de développement Java (JDK) installé.
+- Java Development Kit (JDK) (JDK) installé.
 
 ### Installation
 
