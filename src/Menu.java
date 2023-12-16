@@ -5,8 +5,7 @@ public class Menu {
     private static final int DEFAULT_HEIGHT = 4;
 
 
-    public static void afficherMenu() {
-        Scanner scanner = new Scanner(System.in).useDelimiter("\n");
+    public static void afficherMenu(Scanner scanner) {
 
         String regles = "Chacun à son tour un joueur choisit la pièce qu'il souhaite jouer il doit la jouer sur une case libre.\n" +
                 "Le gagnant est celui qui crée un alignement de 4 pièces ayant au moins un caractère commmun. \n" +
@@ -18,6 +17,7 @@ public class Menu {
         plateau = initialiserPlateau(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 
         do {
+            System.out.println();
             System.out.println("1. Jouer 1v1");
             System.out.println("2. Jouer 1vOrdi");
             System.out.println("3. Options");
@@ -25,7 +25,11 @@ public class Menu {
             System.out.println("5. Les règles");
             System.out.println("0. Quitter");
 
-            choix = demanderChoixUtilisateur(scanner);
+            System.out.println();
+
+            System.out.print("Faites votre choix : ");
+            choix = Utilitaires.getIntInput(scanner);
+
 
             switch (choix) {
                 case 1:
@@ -36,15 +40,12 @@ public class Menu {
                     System.out.println("Mode 1vOrdi : non implémenté.");
                     break;
 
-                case 3:
-                    ajusterOptions(scanner, DEFAULT_WIDTH, DEFAULT_HEIGHT);
-                    break;
 
-                case 4:
+                case 3:
                     GrilleAffichage.afficherGrille(plateau);
                     break;
 
-                case 5:
+                case 4:
                     System.out.println(regles);
                     break;
 
@@ -62,32 +63,6 @@ public class Menu {
         scanner.close();
     }
 
-    private static int demanderChoixUtilisateur(Scanner scanner) {
-        System.out.print("Faites votre choix : ");
-        return Utilitaires.getIntInput(scanner);
-    }
-
-    private static void ajusterOptions(Scanner scanner, int defaultWidth, int defaultHeight) {
-        System.out.println("La largeur actuelle : " + defaultWidth);
-        int largeur = Math.max(1, demanderEntierPositif(scanner, "Entrez la nouvelle largeur : "));
-
-        System.out.println("La hauteur actuelle : " + defaultHeight);
-        int hauteur = Math.max(1, demanderEntierPositif(scanner, "Entrez la nouvelle hauteur : "));
-
-        System.out.println("Options ajustées avec succès !");
-    }
-
-    private static int demanderEntierPositif(Scanner scanner, String message) {
-        int entier;
-        do {
-            System.out.print(message);
-            entier = Utilitaires.getIntInput(scanner);
-            if (entier <= 0) {
-                System.out.println("La valeur doit être positive. Réessayez.");
-            }
-        } while (entier <= 0);
-        return entier;
-    }
 
     private static String[][] initialiserPlateau(int largeur, int hauteur) {
         String[][] plateau = new String[largeur][hauteur];
