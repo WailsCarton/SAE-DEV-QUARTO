@@ -1,7 +1,3 @@
-Bien sûr ! Voici une version du fichier README en français pour votre jeu Quarto en Java :
-
----
-
 # Jeu Quarto
 
 ## Description
@@ -49,21 +45,3 @@ Cette implémentation en Java de Quarto propose une interface en console pour qu
 1. Lancez le jeu en suivant les instructions de la section "Pour commencer".
 2. Suivez les invites à l'écran pour effectuer vos coups.
 3. Le jeu affichera le plateau après chaque coup et annoncera le gagnant lorsque la partie est terminée.
-
-## Contribution
-
-Les contributions sont les bienvenues ! Si vous souhaitez contribuer au projet, veuillez cloner le dépôt et soumettre une demande de fusion (pull request).
-
-## Licence
-
-Ce projet est sous licence MIT - consultez le fichier [LICENSE](LICENSE) pour plus de détails.
-
-## Remerciements
-
-- Le jeu de société Quarto et ses règles ont été conçus par Blaise Muller.
-- Un merci spécial à [Nom1] pour sa contribution à [Fonctionnalité1].
-- Inspiration tirée de l'implémentation de [Nom2] pour [JeuApparenté].
-
----
-
-N'oubliez pas d'ajuster les sections selon vos besoins spécifiques, et de personnaliser les mentions telles que "Prerequisites", "Contributing", "License", et "Acknowledgments" en fonction de votre situation. Vous pouvez également ajouter des sections supplémentaires au besoin.
