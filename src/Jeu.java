@@ -11,7 +11,6 @@ public class Jeu {
         // Initialiser la liste des pions
         List<String> pions = initialiserPions();
 
-        int win;
         do {
             System.out.println(pions);
 
@@ -23,15 +22,21 @@ public class Jeu {
             System.out.println(pions);
 
             // Demander au joueur de choisir une position sur le plateau
-            int ligne = demanderLigne(scanner, plateau);
-            int col = demanderColonne(scanner, plateau, ligne);
+                int ligne = demanderLigne(scanner, plateau);
+                int col = demanderColonne(scanner, plateau, ligne);
+            while (!plateau[ligne][col].equals("0000")){
+                System.out.println("Déjà pris");
+                ligne = demanderLigne(scanner, plateau);
+                col = demanderColonne(scanner, plateau, ligne);
+            }
 
             // Placer le pion choisi sur le plateau
             plateau[ligne][col] = choixPions;
             GrilleAffichage.afficherGrille(plateau);
 
+
         } while (!verifierVictoire(plateau, scanner));
-        scanner.close();
+
     }
 
     // Initialiser la liste des pions

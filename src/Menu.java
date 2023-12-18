@@ -14,9 +14,9 @@ public class Menu {
                 "|Couleur| |Taille| |Forme| |Creux/Plein|";
         int choix;
         String[][] plateau;
-        plateau = initialiserPlateau(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 
         do {
+            plateau = initialiserPlateau(DEFAULT_WIDTH, DEFAULT_HEIGHT);
             System.out.println();
             System.out.println("1. Jouer 1v1");
             System.out.println("2. Jouer 1vOrdi");
