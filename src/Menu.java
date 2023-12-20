@@ -16,7 +16,7 @@ public class Menu {
         String[][] plateau;
 
         do {
-            plateau = initialiserPlateau(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+            plateau = initialiserPlateau();
             System.out.println();
             System.out.println("1. Jouer 1v1");
             System.out.println("2. Jouer 1vOrdi");
@@ -32,30 +32,12 @@ public class Menu {
 
 
             switch (choix) {
-                case 1:
-                    Jeu.jouer(plateau);
-                    break;
-
-                case 2:
-                    System.out.println("Mode 1vOrdi : non implémenté.");
-                    break;
-
-
-                case 3:
-                    GrilleAffichage.afficherGrille(plateau);
-                    break;
-
-                case 4:
-                    System.out.println(regles);
-                    break;
-
-                case 0:
-                    System.out.println("Au revoir");
-                    break;
-
-                default:
-                    System.out.println("Erreur; Faites un choix valide");
-                    break;
+                case 1 -> Jeu.jouer(plateau);
+                case 2 -> JeuBot.jouer(plateau);
+                case 3 -> GrilleAffichage.afficherGrille(plateau);
+                case 4 -> System.out.println(regles);
+                case 0 -> System.out.println("Au revoir");
+                default -> System.out.println("Erreur; Faites un choix valide");
             }
 
         } while (choix != 0);
@@ -64,8 +46,8 @@ public class Menu {
     }
 
 
-    private static String[][] initialiserPlateau(int largeur, int hauteur) {
-        String[][] plateau = new String[largeur][hauteur];
+    private static String[][] initialiserPlateau() {
+        String[][] plateau = new String[Menu.DEFAULT_WIDTH][Menu.DEFAULT_HEIGHT];
         return GrilleAffichage.remplirTableau(plateau);
     }
 }
