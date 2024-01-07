@@ -22,26 +22,6 @@ public class MethodesVictoires {
         return false;
     }
 
-    public static boolean verifierVictoireAvecBot(String[][] plateau, Scanner scanner, TourJoueurBot tour) {
-        // Vérifier les lignes, les colonnes et les diagonales pour une combinaison gagnante
-        if (verifierLignes(plateau) || verifierColonnes(plateau) || verifierDiagonales(plateau)) {
-            if (tour == TourJoueurBot.JOUEUR)
-                System.out.println("Vous avez gagné !");
-            else
-                System.out.println("Le Bot a gagné !");
-            return true;
-        }
-
-        // Vérifier si le plateau est plein (match nul)
-        if (plateauPlein(plateau)) {
-            System.out.println("Match nul !");
-            return true;
-        }
-
-        // Aucune condition de victoire n'est remplie
-        return false;
-    }
-
 
     // Vérifier les lignes pour une combinaison gagnante
     public static boolean verifierLignes(String[][] plateau) {

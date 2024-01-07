@@ -13,41 +13,29 @@ enum TourJoueurBot {
 public class JeuBot {
 
     public static void jouer(String[][] plateau) {
-        Scanner scanner = new Scanner(System.in).useDelimiter("\n");
+        Scanner scanner = new Scanner(System.in);
 
         // Initialiser la liste des pions
-        List<String> pions = MethodesJoueur.initialiserPions();
-        TourJoueurBot tour = TourJoueurBot.JOUEUR;
+        List<String> pions = Utilitaires.initialiserPions();
+        TourJoueurBot tourBot = TourJoueurBot.JOUEUR;
 
         do {
             System.out.println(pions);
 
-            if (tour == TourJoueurBot.JOUEUR) {
-                System.out.println("À vous de jouer !");
-                // Demander au joueur de choisir un pion
-                String choixPions = MethodesJoueur.demanderChoixPions(scanner, pions);
+            if (tourBot == TourJoueurBot.JOUEUR) {
+                System.out.println("\u001B[34mÀ vous de jouer !\u001B[0m");
 
-                // Retirer le pion choisi de la liste
-                MethodesJoueur.prendrePions(pions, choixPions);
-                System.out.println(pions);
-
-                // Demander au joueur de choisir une position sur le plateau
-                int[] position = MethodesJoueur.demanderPositionSurPlateau(scanner, plateau);
-                int ligne = position[0];
-                int col = position[1];
-
-                // Placer le pion choisi sur le plateau
-                plateau[ligne][col] = choixPions;
-                GrilleAffichage.afficherGrille(plateau);
+                //Faire un tour du joueur
+                MethodesBot.jouerTourAvecBot(scanner, pions, plateau, tourBot);
             }
             else {
-                System.out.println("Au Bot de jouer !");
 
-                String choixPions = choisirPionAuHasard(pions);
-                System.out.println(choixPions);
+
+                String choixPions = MethodesBot.choisirPionAuHasard(pions);
+                System.out.println("\u001B[34mLe Bot a choisi \u001B[0m" + choixPions);
 
                 // Retirer le pion choisi de la liste
-                MethodesJoueur.prendrePions(pions, choixPions);
+                Utilitaires.prendrePions(pions, choixPions);
                 System.out.println(pions);
 
                 // Demander au joueur de choisir une position sur le plateau
@@ -58,31 +46,15 @@ public class JeuBot {
                     col = (int) (Math.random() * 4);
                 }
                 // Placer le pion choisi sur le plateau
-                placerPionAuHasard(plateau, choixPions);
-                GrilleAffichage.afficherGrille(plateau);
+                MethodesBot.placerPionAuHasard(plateau, choixPions);
+                Plateau.afficherPlateau(plateau);
 
             }
 
             // Passer au tour suivant
-            tour = (tour == TourJoueurBot.JOUEUR) ? TourJoueurBot.Bot : TourJoueurBot.JOUEUR;
-        } while (!MethodesVictoires.verifierVictoireAvecBot(plateau, scanner, tour));
+            tourBot = (tourBot == TourJoueurBot.JOUEUR) ? TourJoueurBot.Bot : TourJoueurBot.JOUEUR;
+        } while (!MethodesBot.verifierVictoireAvecBot(plateau, tourBot));
 
-    }
-
-    private static String choisirPionAuHasard(List<String> pions) {
-        return pions.get((int) (Math.random() * pions.size()));
-    }
-
-    private static void placerPionAuHasard(String[][] plateau, String choixPions) {
-        int ligne = -1;
-        int col = -1;
-
-        do {
-            ligne = (int) (Math.random() * 4);
-            col = (int) (Math.random() * 4);
-        } while (!plateau[ligne][col].equals("0000"));
-
-        plateau[ligne][col] = choixPions;
     }
 
 }

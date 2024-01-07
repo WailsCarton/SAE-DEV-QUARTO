@@ -12,36 +12,27 @@ enum TourJoueur {
 public class Jeu {
 
     public static void jouer(String[][] plateau) {
-        Scanner scanner = new Scanner(System.in).useDelimiter("\n");
+        Scanner scanner = new Scanner(System.in);
 
         // Initialiser la liste des pions
-        List<String> pions = MethodesJoueur.initialiserPions();
+        List<String> pions = Utilitaires.initialiserPions();
+
+        //Faire un tour du joueur
         TourJoueur tour = TourJoueur.JOUEUR_1;
 
         do {
+            System.out.println("\u001B[34mLes pions disponibles:\u001B[0m");
             System.out.println(pions);
+            System.out.println("\u001B[34mLe plateau actuel:\u001B[0m");
+            Plateau.afficherPlateau(plateau);
 
             if (tour == TourJoueur.JOUEUR_1) {
-                System.out.println("Joueur 1 à vous de jouer !");
+                System.out.println("\u001B[34mJoueur 1 choisissez un pion !\u001B[0m");
             } else {
-                System.out.println("Joueur 2 à vous de jouer !");
+                System.out.println("\u001B[34mJoueur 2 choisissez un pion !\u001B[0m");
             }
 
-            // Demander au joueur de choisir un pion
-            String choixPions = MethodesJoueur.demanderChoixPions(scanner, pions);
-
-            // Retirer le pion choisi de la liste
-            MethodesJoueur.prendrePions(pions, choixPions);
-            System.out.println(pions);
-
-            // Demander au joueur de choisir une position sur le plateau
-            int[] position = MethodesJoueur.demanderPositionSurPlateau(scanner, plateau);
-            int ligne = position[0];
-            int col = position[1];
-
-            // Placer le pion choisi sur le plateau
-            plateau[ligne][col] = choixPions;
-            GrilleAffichage.afficherGrille(plateau);
+            MethodesJoueur.jouerTour(scanner, pions, plateau, tour);
 
             // Passer au tour suivant
             tour = (tour == TourJoueur.JOUEUR_1) ? TourJoueur.JOUEUR_2 : TourJoueur.JOUEUR_1;
