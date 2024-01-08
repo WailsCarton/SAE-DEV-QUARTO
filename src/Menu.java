@@ -33,12 +33,12 @@ public class Menu {
 
             switch (choix) {
                 case 1 -> {
-                    Utilitaires.wait(1000);
+                    Utilitaires.loading();
                     Jeu.jouer(plateau);
                 }
                 case 2 -> {
-                    Utilitaires.wait(1000);
-                    ChoixDifficulteBot.afficherChoixDifficulteBot(scanner);
+                    Utilitaires.loading();
+                    MenuDifficulteBot.afficherChoixDifficulteBot(scanner);
                 }
                 case 3 -> {
                     Plateau.afficherPlateau(plateau);
@@ -48,7 +48,10 @@ public class Menu {
                     System.out.println(regles);
                     Utilitaires.wait(5000);
                 }
-                case 0 -> System.out.println("Au revoir");
+                case 0 -> {
+                    System.out.println("Au revoir");
+                    Utilitaires.wait(1000);
+                }
                 default -> System.out.println("Erreur; Faites un choix valide");
             }
 

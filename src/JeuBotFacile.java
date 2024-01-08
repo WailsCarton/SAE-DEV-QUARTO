@@ -4,44 +4,41 @@ import java.util.Arrays;
 import java.util.ArrayList;
 
 // Enumération pour représenter les tours des joueurs
-enum TourJoueur {
-    JOUEUR_1,
-    JOUEUR_2
+enum TourJoueurBot {
+    JOUEUR,
+    Bot
 }
 
-public class Jeu {
+
+public class JeuBotFacile {
 
     public static void jouer(String[][] plateau) {
         Scanner scanner = new Scanner(System.in);
 
         // Initialiser la liste des pions
         List<String> pions = Utilitaires.initialiserPions();
-
-        //Passer au tour du joueur
-        TourJoueur tour = TourJoueur.JOUEUR_1;
+        TourJoueurBot tourBot = TourJoueurBot.JOUEUR;
 
         boolean victoire = false;
-
         do {
+
             System.out.println("\u001B[34mLes pions disponibles:\u001B[0m");
             System.out.println(pions);
             System.out.println("\u001B[34mLe plateau actuel:\u001B[0m");
             Plateau.afficherPlateau(plateau);
 
-            MethodesJoueur.jouerTour(scanner, pions, plateau, tour);
+            MethodesBotFacile.jouerTourAvecBot(scanner, pions, plateau, tourBot);
             System.out.println("____________________________________________________________________________________________________________________________________________________________________________________________________________________________");
+
             // Passer au tour suivant
-            tour = (tour == TourJoueur.JOUEUR_1) ? TourJoueur.JOUEUR_2 : TourJoueur.JOUEUR_1;
+            tourBot = (tourBot == TourJoueurBot.JOUEUR) ? TourJoueurBot.Bot : TourJoueurBot.JOUEUR;
 
-            victoire = MethodesVictoires.verifierVictoire(plateau, tour);
+            victoire = MethodesBotFacile.verifierVictoireAvecBot(plateau, tourBot);
 
-            Utilitaires.wait(1000);
+            Utilitaires.wait(3000);
 
         } while (!victoire);
 
     }
-
-
-
 
 }

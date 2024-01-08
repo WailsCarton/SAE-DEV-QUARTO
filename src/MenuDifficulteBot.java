@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class ChoixDifficulteBot {
+public class MenuDifficulteBot {
     public static void afficherChoixDifficulteBot(Scanner scanner) {
 
         String regles = "Chacun à son tour un joueur choisit la pièce qu'il souhaite jouer il doit la jouer sur une case libre.\n" +
@@ -27,10 +27,19 @@ public class ChoixDifficulteBot {
 
 
             switch (choix) {
-                case 1 -> JeuBot.jouer(plateau);
-                case 2 -> JeuBot.jouer(plateau);
-                case 3 -> Menu.afficherMenu(scanner);
-                case 0 -> System.out.println("Au revoir");
+                case 1 -> {
+                    Utilitaires.loading();
+                    JeuBotFacile.jouer(plateau);
+                }
+                case 2 -> JeuBotNormal.jouer(plateau);
+                case 3 -> {
+                    Menu.afficherMenu(scanner);
+                    Utilitaires.wait(1000);
+                }
+                case 0 -> {
+                    System.out.println("Au revoir");
+                    Utilitaires.wait(1000);
+                }
                 default -> System.out.println("Erreur; Faites un choix valide");
             }
 

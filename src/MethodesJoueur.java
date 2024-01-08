@@ -66,22 +66,32 @@ public class MethodesJoueur {
 
     // Méthode pour jouer un tour
     public static void jouerTour(Scanner scanner, List<String> pions, String[][] plateau, TourJoueur tour) {
+
         // Demander au joueur de choisir un pion
+        if (tour == TourJoueur.JOUEUR_1) {
+            System.out.println("\u001B[34mJoueur 1 choisissez un pion !\u001B[0m");
+        } else {
+            System.out.println("\u001B[34mJoueur 2 choisissez un pion !\u001B[0m");
+        }
         String choixPions = MethodesJoueur.demanderChoixPions(scanner, pions);
 
         // Retirer le pion choisi de la liste
         Utilitaires.prendrePions(pions, choixPions);
         System.out.println(pions);
 
+        Utilitaires.wait(1000);
+
         // Demander a l'autre joueur de choisir une position sur le plateau
         if (tour == TourJoueur.JOUEUR_1) {
-            System.out.println("\u001B[34mJoueur 2 choisissez un pion !\u001B[0m");
+            System.out.println("\u001B[34mJoueur 2 placez le pion !\u001B[0m");
         } else {
-            System.out.println("\u001B[34mJoueur 1 choisissez un pion !\u001B[0m");
+            System.out.println("\u001B[34mJoueur 1 placez le pion !\u001B[0m");
         }
         int[] position = MethodesJoueur.demanderPositionSurPlateau(scanner, plateau);
         int ligne = position[0];
         int col = position[1];
+
+        Utilitaires.wait(1000);
 
         // Placer le pion choisi sur le plateau
         plateau[ligne-1][col-1] = choixPions;

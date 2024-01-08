@@ -38,4 +38,14 @@ public class Utilitaires {
 
     }
 
+    public static void loading(){
+        System.out.println("loading.");
+        Utilitaires.wait(333);
+        System.out.println("loading..");
+        Utilitaires.wait(333);
+        System.out.println("loading...");
+        Utilitaires.wait(333);
+    }
 }
+
+

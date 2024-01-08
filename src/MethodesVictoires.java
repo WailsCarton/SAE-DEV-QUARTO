@@ -1,8 +1,8 @@
-import java.util.Scanner;
+
 
 public class MethodesVictoires {
     // Vérifier si le joueur a gagné ou si le plateau est plein
-    public static boolean verifierVictoire(String[][] plateau, Scanner scanner, TourJoueur tour) {
+    public static boolean verifierVictoire(String[][] plateau, TourJoueur tour) {
         // Vérifier les lignes, les colonnes et les diagonales pour une combinaison gagnante
         if (verifierLignes(plateau) || verifierColonnes(plateau) || verifierDiagonales(plateau)) {
             if (tour == TourJoueur.JOUEUR_1)
