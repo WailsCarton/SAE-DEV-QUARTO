@@ -24,20 +24,20 @@ Cette implémentation en Java de Quarto propose une interface en console pour qu
 1. Clonez le dépôt :
 
    ```bash
-   git clone https://github.com/WailsCarton/QuartoGame.git
+   git clone https://github.com/WailsCarton/SAE-DEV-QUARTO.git
    ```
 
 2. Compilez les fichiers source Java :
 
    ```bash
-   cd QuartoGame
-   javac QuartoGame.java
+   cd SAE-DEV-QUARTO
+   javac SAE-DEV-QUARTO.java
    ```
 
 3. Lancez le jeu :
 
    ```bash
-   java QuartoGame
+   java SAE-DEV-QUARTO
    ```
 
 ## Comment jouer
