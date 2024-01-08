@@ -9,7 +9,7 @@ public class MethodesBotFacile {
         int ligne;
         int col;
 
-        // Demander au joueur de choisir un pion
+        // Demander aux joueurs de choisir un pion
         if (tourBot == TourJoueurBot.JOUEUR) {
             System.out.println("\u001B[34mÀ vous de choisir un pion !\u001B[0m");
             choixPions = MethodesJoueur.demanderChoixPions(scanner, pions);
@@ -49,8 +49,8 @@ public class MethodesBotFacile {
     }
 
     public static void placerPionAuHasard(String[][] plateau, String choixPions) {
-        int ligne = -1;
-        int col = -1;
+        int ligne;
+        int col;
 
         do {
             ligne = (int) (Math.random() * 4);

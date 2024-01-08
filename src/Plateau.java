@@ -3,21 +3,21 @@ public class Plateau {
     private static final int DEFAULT_HEIGHT = 4;
 
     public static void afficherPlateau(String[][] plateau) {
-        for (int i = 0; i < plateau.length; i++) {
-            afficherLigneSeparator(plateau[i].length);
-            afficherLigne(plateau[i]);
+        for (String[] strings : plateau) {
+            afficherLigneSeparator(strings.length);
+            afficherLigne(strings);
         }
         afficherLigneSeparator(plateau[0].length);
     }
 
-    private static void afficherLigne(String[] ligne) {
-        for (int j = 0; j < ligne.length; j++) {
-            System.out.print("| " + (ligne[j].equals("0000") ? "    " : ligne[j]) + " ");
+    public static void afficherLigne(String[] ligne) {
+        for (String s : ligne) {
+            System.out.print("| " + (s.equals("0000") ? "    " : s) + " ");
         }
         System.out.println("|");
     }
 
-    private static void afficherLigneSeparator(int taille) {
+    public static void afficherLigneSeparator(int taille) {
         for (int j = 0; j < taille; j++) {
             System.out.print("+------");
         }

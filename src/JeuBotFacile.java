@@ -1,7 +1,5 @@
 import java.util.Scanner;
 import java.util.List;
-import java.util.Arrays;
-import java.util.ArrayList;
 
 // Enumération pour représenter les tours des joueurs
 enum TourJoueurBot {
@@ -19,7 +17,7 @@ public class JeuBotFacile {
         List<String> pions = Utilitaires.initialiserPions();
         TourJoueurBot tourBot = TourJoueurBot.JOUEUR;
 
-        boolean victoire = false;
+        boolean victoire;
         do {
 
             System.out.println("\u001B[34mLes pions disponibles:\u001B[0m");

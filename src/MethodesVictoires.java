@@ -6,15 +6,15 @@ public class MethodesVictoires {
         // Vérifier les lignes, les colonnes et les diagonales pour une combinaison gagnante
         if (verifierLignes(plateau) || verifierColonnes(plateau) || verifierDiagonales(plateau)) {
             if (tour == TourJoueur.JOUEUR_1)
-                System.out.println("Le joueur 1 a gagné !");
+                System.out.println("\u001B[34mLe joueur 1 a gagné !\u001B[0m");
             else
-                System.out.println("Le joueur 2 a gagné !");
+                System.out.println("\u001B[34mLe joueur 2 a gagné !\u001B[0m");
             return true;
         }
 
         // Vérifier si le plateau est plein (match nul)
         if (plateauPlein(plateau)) {
-            System.out.println("Match nul !");
+            System.out.println("\u001B[34mMatch nul !\u001B[0m");
             return true;
         }
 
@@ -25,8 +25,8 @@ public class MethodesVictoires {
 
     // Vérifier les lignes pour une combinaison gagnante
     public static boolean verifierLignes(String[][] plateau) {
-        for (int ligne = 0; ligne < plateau.length; ligne++) {
-            if (ligneContientCombinaisonGagnante(plateau[ligne])) {
+        for (String[] cellule : plateau) {
+            if (ligneContientCombinaisonGagnante(cellule)) {
                 return true;
             }
         }

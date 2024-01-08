@@ -1,7 +1,5 @@
 import java.util.Scanner;
 import java.util.List;
-import java.util.Arrays;
-import java.util.ArrayList;
 
 // Enumération pour représenter les tours des joueurs
 enum TourJoueur {
@@ -20,7 +18,7 @@ public class Jeu {
         //Passer au tour du joueur
         TourJoueur tour = TourJoueur.JOUEUR_1;
 
-        boolean victoire = false;
+        boolean victoire;
 
         do {
             System.out.println("\u001B[34mLes pions disponibles:\u001B[0m");

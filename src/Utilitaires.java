@@ -34,8 +34,6 @@ public class Utilitaires {
         } catch (InterruptedException ex) {
             Thread.currentThread().interrupt();
         }
-
-
     }
 
     public static void loading(){

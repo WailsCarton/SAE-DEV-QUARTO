@@ -7,11 +7,13 @@ public class Menu {
     public static void afficherMenu(Scanner scanner) {
 
 
-        String regles = "Chacun son tour un joueur choisit la pièce qu'il souhaite jouer il doit la jouer sur une case libre.\n" +
-                "Le gagnant est celui qui crée un alignement de 4 pièces ayant au moins un caractère commmun. \n" +
-                "Caractères : Noir(N), Blanc(B), Pleins(P), Creux(C), Petit(P), Grand(G), Rond(R) et Carré(C). \n" +
-                "Exemple : Blanc Petit Carré Creux = BPCC (L'ordre est important est reste tout le temps le même.)\n" +
-                "|Couleur| |Taille| |Forme| |Creux/Plein|";
+        String regles = """
+                \u001B[34m
+                Chacun son tour un joueur choisit la pièce qu'il souhaite donner à l'adversaire, l'adversaire doit la jouer sur une case libre.
+                Le gagnant est celui qui crée un alignement de 4 pièces ayant au moins un caractère commmun.\s
+                Caractères : Noir(N), Blanc(B), Pleins(P), Creux(C), Petit(P), Grand(G), Rond(R) et Carré(C).\s
+                Exemple : \u001B[31mB\u001B[34mlanc \u001B[31mP\u001B[34metit \u001B[31mC\u001B[34marré \u001B[31mC\u001B[34mreux = \u001B[31mB\u001B[31mP\u001B[31mC\u001B[31mC\u001B[34m (L'ordre est important est reste tout le temps le même.)
+                |Couleur| |Taille| |Forme| |Creux/Plein|\u001B[0m""";
         int choix;
         String[][] plateau;
 
@@ -49,10 +51,10 @@ public class Menu {
                     Utilitaires.wait(5000);
                 }
                 case 0 -> {
-                    System.out.println("Au revoir");
+                    System.out.println("\u001B[34mAu revoir\u001B[0m");
                     Utilitaires.wait(1000);
                 }
-                default -> System.out.println("Erreur; Faites un choix valide");
+                default -> System.out.println("\u001B[31mErreur; \u001B[30Faites un choix valide");
             }
 
         } while (choix != 0);

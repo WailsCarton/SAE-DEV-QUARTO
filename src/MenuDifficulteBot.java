@@ -2,12 +2,6 @@ import java.util.Scanner;
 
 public class MenuDifficulteBot {
     public static void afficherChoixDifficulteBot(Scanner scanner) {
-
-        String regles = "Chacun à son tour un joueur choisit la pièce qu'il souhaite jouer il doit la jouer sur une case libre.\n" +
-                "Le gagnant est celui qui crée un alignement de 4 pièces ayant au moins un caractère commmun. \n" +
-                "Caractères : Noir(N), Blanc(B), Pleins(P), Creux(C), Petit(P), Grand(G), Rond(R) et Carré(C). \n" +
-                "Exemple : Blanc Petit Carré Creux = BPCC (L'ordre est important est reste tout le temps le même.)\n" +
-                "|Couleur| |Taille| |Forme| |Creux/Plein|";
         int choix;
         String[][] plateau;
 
@@ -31,16 +25,19 @@ public class MenuDifficulteBot {
                     Utilitaires.loading();
                     JeuBotFacile.jouer(plateau);
                 }
-                case 2 -> JeuBotNormal.jouer(plateau);
+                case 2 -> {
+                    Utilitaires.loading();
+                    JeuBotNormal.jouer(plateau);
+                }
                 case 3 -> {
                     Menu.afficherMenu(scanner);
                     Utilitaires.wait(1000);
                 }
                 case 0 -> {
-                    System.out.println("Au revoir");
+                    System.out.println("\u001B[34mAu revoir\u001B[0m");
                     Utilitaires.wait(1000);
                 }
-                default -> System.out.println("Erreur; Faites un choix valide");
+                default -> System.out.println("\u001B[31mErreur; \u001B[30Faites un choix valide");
             }
 
         } while (choix != 0);

@@ -3,101 +3,97 @@ import java.util.Scanner;
 
 public class MethodesBotNormal {
 
-    // Méthode pour jouer un tour
-    public static int[] jouerTourAvecBot(Scanner scanner, List<String> pions, String[][] plateau, TourJoueurBot tourBot) {
-        // Demander au joueur de choisir un pion
-        String choixPions = MethodesJoueur.demanderChoixPions(scanner, pions);
+    private static int[] dernierePositionJoueur;
 
-        // Retirer le pion choisi de la liste
+    // Méthode pour jouer un tour
+    public static void jouerTourAvecBot(Scanner scanner, List<String> pions, String[][] plateau, TourJoueurBot tourBot) {
+        String choixPions;
+        int ligne;
+        int col;
+
+        // Demander aux joueurs de choisir un pion
+        if (tourBot == TourJoueurBot.JOUEUR) {
+            // Le joueur choisit un pion
+            System.out.println("\u001B[34mÀ vous de choisir un pion !\u001B[0m");
+            choixPions = MethodesJoueur.demanderChoixPions(scanner, pions);
+        } else {
+            // Le Bot choisit un pion
+            System.out.println("\u001B[34mAu Bot de choisir un pion !\u001B[0m");
+            choixPions = choisirPionAuHasard(pions);
+            Utilitaires.loading();
+            System.out.println("\u001B[34mLe Bot a choisi \u001B[0m" + choixPions);
+        }
+
+        // Retirer le pion choisi par le Bot de la liste
         Utilitaires.prendrePions(pions, choixPions);
         System.out.println(pions);
 
-        // Demander a l'autre joueur de choisir une position sur le plateau
+        // Placement des pions
         if (tourBot == TourJoueurBot.JOUEUR) {
-            System.out.println("\u001B[34mLe Bot choisit un pion !\u001B[0m");
+            // Le Bot place le pion choisi sur le plateau
+            System.out.println("\u001B[34mLe Bot place le pion !\u001B[0m");
+            Utilitaires.loading();
+
+            // Si la position du dernier pion du joueur est trouvée, placer à côté de cette position
+            if (dernierePositionJoueur != null) {
+                ligne = dernierePositionJoueur[0];
+                col = dernierePositionJoueur[1];
+                placerPionNormal(plateau, choixPions, ligne, col);
+            } else {
+                // Si aucun pion n'a été posé, placer au hasard
+                placerPionAuHasard(plateau, choixPions);
+            }
+
+            Plateau.afficherPlateau(plateau);
         } else {
-            System.out.println("\u001B[34mJoueur 1 choisissez un pion !\u001B[0m");
+
+            // Le joueur place le pion choisi par le Bot sur le plateau
+            System.out.println("\u001B[34mPlacez le pion  !\u001B[0m");
+            int[] position = MethodesJoueur.demanderPositionSurPlateau(scanner, plateau);
+            ligne = position[0];
+            col = position[1];
+
+            // Placer le pion choisi sur le plateau
+            plateau[ligne - 1][col - 1] = choixPions;
+            Plateau.afficherPlateau(plateau);
+
+            // Mettre à jour la position du dernier pion du joueur
+            dernierePositionJoueur = new int[]{ligne, col};
         }
-        int[] position = MethodesJoueur.demanderPositionSurPlateau(scanner, plateau);
-        int ligne = position[0];
-        int col = position[1];
-        int[] ref = new int[2];
-        ref[0] = ligne;
-        ref[1] = col;
-        // Placer le pion choisi sur le plateau
-        plateau[ligne-1][col-1] = choixPions;
-        Plateau.afficherPlateau(plateau);
-        return ref;
     }
     public static String choisirPionAuHasard(List<String> pions) {
         return pions.get((int) (Math.random() * pions.size()));
     }
 
-    public static void placerPionAuHasard(String[][] plateau, String choixPions, int refligne, int refcol) {
-        int ligne = refligne;
-        int col = refcol;
-        int placement =(int) (Math.random() * 3);
-        switch (placement){
-            case 0 :
-                if (col == 3){
-                    while (!plateau[ligne][col].equals("0000")){
-                        ligne = (int) (Math.random() * 4);
-                        col = (int) (Math.random() * 4);
-                    }
+    public static void placerPionNormal(String[][] plateau, String choixPions, int ligneJoueur, int colJoueur) {
+        int ligne;
+        int col;
+
+        // Essayer de placer le pion autour du pion posé par le joueur
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+                ligne = ligneJoueur-1 + i;
+                col = colJoueur-1 + j;
+                // Vérifier si la position est valide et libre
+                if (ligne >= 0 && ligne < plateau.length && col >= 0 && col < plateau[0].length && plateau[ligne][col].equals("0000")) {
+                    plateau[ligne][col] = choixPions;
+                    return; // Sortir de la méthode après avoir placé le pion
                 }
-                else {
-                    col = col + 1;
-                }
-            case 1 :
-                if (col == 0){
-                    while (!plateau[ligne][col].equals("0000")){
-                        ligne = (int) (Math.random() * 4);
-                        col = (int) (Math.random() * 4);
-                    }
-                }
-                else {
-                    col = col - 1;
-                }
-            case 2 :
-                if (ligne ==3){
-                    while (!plateau[ligne][col].equals("0000")){
-                        ligne = (int) (Math.random() * 4);
-                        col = (int) (Math.random() * 4);
-                    }
-                }
-                else {
-                    ligne = ligne + 1;
-                }
-            case 3 :
-                if (ligne == 0){
-                    while (!plateau[ligne][col].equals("0000")){
-                        ligne = (int) (Math.random() * 4);
-                        col = (int) (Math.random() * 4);
-                    }
-                }
-                else {
-                    ligne = ligne -1;
-                }
-        }
-        plateau[ligne-1][col-1] = choixPions;
-    }
-    public static boolean verifierVictoireAvecBot(String[][] plateau, TourJoueurBot tour) {
-        // Vérifier les lignes, les colonnes et les diagonales pour une combinaison gagnante
-        if (MethodesVictoires.verifierLignes(plateau) || MethodesVictoires.verifierColonnes(plateau) || MethodesVictoires.verifierDiagonales(plateau)) {
-            if (tour == TourJoueurBot.JOUEUR)
-                System.out.println("Vous avez gagné !");
-            else
-                System.out.println("Le Bot a gagné !");
-            return true;
+            }
         }
 
-        // Vérifier si le plateau est plein (match nul)
-        if (MethodesVictoires.plateauPlein(plateau)) {
-            System.out.println("Match nul !");
-            return true;
-        }
-
-        // Aucune condition de victoire n'est remplie
-        return false;
     }
+
+    public static void placerPionAuHasard(String[][] plateau, String choixPions) {
+        int ligne;
+        int col;
+
+        do {
+            ligne = (int) (Math.random() * 4);
+            col = (int) (Math.random() * 4);
+        } while (!plateau[ligne][col].equals("0000"));
+
+        plateau[ligne][col] = choixPions;
+    }
+
 }
